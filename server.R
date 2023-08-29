@@ -859,7 +859,7 @@ server <- function(input, output) {
     req(input$continent_card)
     data <-basic_data2 %>%filter(location == input$continent_card) %>% 
       select( location, new_cases, new_deaths, new_vaccinations )%>%
-      setNames(c( "location","cases", "deaths", "vacc"))%>%group_by(location) %>% drop_na(c(cases, deaths, vacc))%>%
+      setNames(c( "location","cases", "deaths", "vacc"))%>%group_by(location) %>%drop_na(c(cases, deaths, vacc))%>%
       summarise(num = n(),
                 cases = sum(cases), deaths = sum(deaths), vacc = sum(vacc))
     #leaderboard <- leaderboard[order(leaderboard$cases, decreasing = TRUE),]
@@ -885,7 +885,7 @@ server <- function(input, output) {
           )),
       div(id="italy",
           valueBox(
-            paste0("Total vaccinations: ", format((as.integer(data[5])), big.mark=",")), paste0("In date-range: ", format((as.integer(data2[5])), big.mark=",")), icon = icon("virus-covid"),
+            paste0("Total vaccinations: ", format(data[5]$vacc, big.mark = ",")), paste0("In date-range: ", format(data2[5]$vacc, big.mark = ",")), icon = icon("virus-covid"),
             color = "navy"
           ))
     )
